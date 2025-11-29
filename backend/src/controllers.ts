@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { getAllUrls, getURLByLongUrl, saveShortUrl } from './models/url.js';
-import { URLAPIResponse, URLAPIError } from './types/common.js';
+import { saveShortUrl, getAllUrls } from './models/url.js';
 
 async function shortenUrl(req: Request, res: Response) {
 	console.log('Received request to shorten URL');
