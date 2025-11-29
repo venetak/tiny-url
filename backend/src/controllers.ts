@@ -6,10 +6,14 @@ async function shortenUrl(req: Request, res: Response) {
 	console.log('Received request to shorten URL');
 	const { longUrl } = req.body;
 	const response = await saveShortUrl(longUrl);
-	if (response.status === 'error') {
-		return res.json({ error: response.message });
-	}
-	res.json({ status: response.status, message: response.message });
+
+	if (response.status === 'error') return res.json({ error: response.error, status: 'error' });
+
+	res.json({ 
+		status: response.status,
+		message: response.message,
+		data: response.data 
+	});
 }
 
 async function listUrls(req: Request, res: Response) {
