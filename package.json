@@ -1,0 +1,30 @@
+{
+  "name": "tiny-url",
+  "version": "1.0.0",
+  "description": "Shorten urls",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc -p backend/tsconfig.json",
+    "start": "node backend/dist/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/venetak/tiny-url.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/venetak/tiny-url/issues"
+  },
+  "homepage": "https://github.com/venetak/tiny-url#readme",
+  "dependencies": {
+    "@types/express": "^5.0.5",
+    "express": "^5.1.0",
+    "pg-promise": "^12.3.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}
