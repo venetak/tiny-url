@@ -33,9 +33,14 @@ function successMessageBuilder(successKey: string): string {
   return successMap[successKey] || "Operation completed successfully.";
 }
 
+function hostnameFromRequest(req: any): string {
+  return `${req.protocol}://${req.get('host')}`;
+}
+
 export {
   to,
   generateShortCode,
+  hostnameFromRequest,
   errorMessageBuilder,
   successMessageBuilder,
 };

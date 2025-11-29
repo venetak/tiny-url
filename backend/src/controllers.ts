@@ -2,8 +2,8 @@
  * Controller functions for URL shortening and retrieval.
  */
 import { Request, Response, NextFunction } from 'express';
-import { saveShortUrl, getAllUrls } from './models/url.js';
-
+import { saveShortUrl, getAllUrls, getURLByShortCode } from './models/url.js';
+import { hostnameFromRequest } from './helpers.js';
 
 /**
  * Shortens a given long URL and returns the result.
@@ -13,7 +13,8 @@ import { saveShortUrl, getAllUrls } from './models/url.js';
 async function shortenUrl(req: Request, res: Response) {
 	console.log('Received request to shorten URL');
 	const { longUrl } = req.body;
-	const response = await saveShortUrl(longUrl);
+	const host = hostnameFromRequest(req);
+	const response = await saveShortUrl(longUrl, host);
 
 	if (response.status === 'error') return res.json({ error: response.error, status: 'error' });
 
@@ -32,7 +33,8 @@ async function shortenUrl(req: Request, res: Response) {
  */
 async function listUrls(req: Request, res: Response) {
 	// returns list of all URLs
-	const urls = await getAllUrls();
+	const host = hostnameFromRequest(req);
+	const urls = await getAllUrls(host);
 	res.json(urls);
 }
 
@@ -42,11 +44,16 @@ async function listUrls(req: Request, res: Response) {
  * @param {Request} req - Express request object
  * @param {Response} res - Express response object
  */
-function redirectShortUrl(req: Request, res: Response) {
+async function redirectShortUrl(req: Request, res: Response) {
 	// expects shortCode in params
-	// should redirect to longUrl and increment click count
-	// Example: res.redirect(301, 'https://example.com');
-	res.redirect(302, 'https://example.com');
+	const { shortCode } = req.params;
+	const url = await getURLByShortCode(shortCode);
+
+	if (url.status === 'error') {
+		return res.status(404).json({ error: url.error });
+	}
+
+	res.redirect(302, url.data.longurl);
 }
 
 
