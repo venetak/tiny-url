@@ -3,13 +3,22 @@ const router = express.Router();
 import { shortenUrl, listUrls, redirectShortUrl } from './controllers.js';
 import { validateUrlInput } from './middlewares.js';
 
-// POST /api/shorten
+/**
+ * Route to shorten a URL.
+ * @name POST /api/shorten
+ */
 router.post('/api/shorten', validateUrlInput, shortenUrl);
 
-// GET /api/urls
+/**
+ * Route to list all URLs.
+ * @name GET /api/urls
+ */
 router.get('/api/urls', listUrls);
 
-// GET /:shortCode
+/**
+ * Route to redirect a short code to its long URL.
+ * @name GET /:shortCode
+ */
 router.get('/:shortCode', redirectShortUrl);
 
 export default router;

@@ -1,6 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
 
-// Middleware to validate URL input
+/**
+ * Middleware to validate the input URL for security and format.
+ * Checks for valid URL format, malicious schemes, suspicious content, and basic SQL injection patterns.
+ * @param {Request} req - Express request object
+ * @param {Response} res - Express response object
+ * @param {NextFunction} next - Express next middleware function
+ */
 export function validateUrlInput(req: Request, res: Response, next: NextFunction) {
 	const { longUrl } = req.body;
 	try {
