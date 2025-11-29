@@ -7,9 +7,9 @@ import { validateUrlInput } from './middlewares.js';
 router.post('/api/shorten', validateUrlInput, shortenUrl);
 
 // GET /api/urls
-router.get('/api/urls', validateUrlInput, listUrls);
+router.get('/api/urls', listUrls);
 
 // GET /:shortCode
-router.get('/:shortCode', validateUrlInput, redirectShortUrl);
+router.get('/:shortCode', redirectShortUrl);
 
 export default router;

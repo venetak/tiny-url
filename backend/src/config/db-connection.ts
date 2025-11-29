@@ -1,2 +1,15 @@
+import dotenv from 'dotenv';
+import path from 'path';
 const pgp = (await import('pg-promise')).default();
-export default pgp('postgres://postgres:12345@localhost:5432/tiny-url')
+
+dotenv.config({ path: '.env' });
+
+const {
+	DB_USER,
+	DB_PASSWORD,
+	DB_HOST,
+	DB_PORT,
+	DB_NAME
+} = process.env;
+
+export default pgp(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`);
