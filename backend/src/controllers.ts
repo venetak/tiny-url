@@ -18,10 +18,11 @@ async function shortenUrl(req: Request, res: Response) {
 
 	if (response.status === 'error') return res.json({ error: response.error, status: 'error' });
 
+	// Always return a full URL object for frontend compatibility
 	res.json({ 
 		status: response.status,
 		message: response.message,
-		data: response.data 
+		data: response.data
 	});
 }
 

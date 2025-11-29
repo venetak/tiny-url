@@ -34,7 +34,7 @@ function successMessageBuilder(successKey: string): string {
 }
 
 function hostnameFromRequest(req: any): string {
-  return `${req.protocol}://${req.get('host')}`;
+  return `${req.protocol}://${req.get('host')}/api`;
 }
 
 export {

@@ -54,11 +54,21 @@ async function getURLByShortCode(shortCode: string): Promise<URLAPIResponse<any>
 async function saveShortUrl(longUrl: string, host: string): Promise<URLAPIResponse<any> | URLAPIError> {
     const response = await getURLByLongUrl(longUrl);
     if (response.status === 'error') return response;
-    if (response.data) return {
-        status: response.status,
-        data: `${host}/${response.data.shortcode}`,
-        message: successMessageBuilder("URLExists")
-    }; // URL already exists
+    if (response.data) {
+        // Existing URL, hydrate full object
+        const urlRecord = response.data;
+        return {
+            status: response.status,
+            data: {
+                shortUrl: `${host}/${urlRecord.shortcode}`,
+                longUrl: urlRecord.longurl,
+                shortCode: urlRecord.shortcode,
+                clicks: urlRecord.clicks || 0,
+                createdAt: urlRecord.createdat || null,
+            },
+            message: successMessageBuilder("URLExists")
+        };
+    }
 
     const shortCode = generateShortCode(longUrl);
     const sql = `INSERT INTO "Url" (longurl, shortcode) VALUES ($1, $2)
@@ -67,10 +77,17 @@ async function saveShortUrl(longUrl: string, host: string): Promise<URLAPIRespon
     const [error, data] = await to(db.one(sql, [longUrl, shortCode]));
     if (error) return { status: 'error', error: errorMessageBuilder("saveShortUrl", error) };
 
+    // Return full object for new URL
     return {
         status: 'success',
         message: successMessageBuilder("saveShortUrl"),
-        data: `http://localhost:3000/${data.shortcode}`,
+        data: {
+            shortUrl: `${host}/${data.shortcode}`,
+            longUrl: data.longurl,
+            shortCode: data.shortcode,
+            clicks: data.clicks || 0,
+            createdAt: data.createdat || null,
+        },
     };
 }
 

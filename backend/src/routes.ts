@@ -5,15 +5,15 @@ import { validateUrlInput } from './middlewares.js';
 
 /**
  * Route to shorten a URL.
- * @name POST /api/shorten
+ * @name POST /shorten
  */
-router.post('/api/shorten', validateUrlInput, shortenUrl);
+router.post('/shorten', validateUrlInput, shortenUrl);
 
 /**
  * Route to list all URLs.
- * @name GET /api/urls
+ * @name GET /urls
  */
-router.get('/api/urls', listUrls);
+router.get('/urls', listUrls);
 
 /**
  * Route to redirect a short code to its long URL.

@@ -3,6 +3,7 @@
  * Sets up middleware and routes, and starts the server.
  */
 import express from 'express';
+import path from 'path';
 
 /**
  * Express application instance
@@ -17,14 +18,23 @@ const port = 3000;
 /**
  * Main router for handling application routes
  */
-import router from './routes.js';
 
 
 // Middleware to parse JSON requests
 app.use(express.json());
-// Register main router
-app.use('/', router);
 
+// Serve static files from frontend/build
+const frontendBuildPath = path.resolve(process.cwd(), 'frontend/build');
+app.use(express.static(frontendBuildPath));
+
+import router from './routes.js';
+
+// Register main router for API
+app.use('/api', router);
+
+app.get(/^\/(?!api).*/, (req, res) => {
+  res.sendFile(path.join(frontendBuildPath, 'index.html'));
+});
 
 /**
  * Starts the Express server and listens on the specified port.
