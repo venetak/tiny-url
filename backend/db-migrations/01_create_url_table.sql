@@ -1,9 +1,9 @@
 CREATE TABLE IF NOT EXISTS "Url" (
     id SERIAL PRIMARY KEY,
-    longUrl TEXT UNIQUE NOT NULL,
-    shortCode VARCHAR(255) UNIQUE NOT NULL,
-    createdAt TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL
+    longurl TEXT UNIQUE NOT NULL,
+    shortcode VARCHAR(255) UNIQUE NOT NULL,
+    createdat TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL
 );
 
-CREATE INDEX IF NOT EXISTS idx_url_longurl ON "Url"(longUrl);
-CREATE INDEX IF NOT EXISTS idx_url_shortcode ON "Url"(shortCode);
+CREATE INDEX IF NOT EXISTS idx_url_longurl ON "Url"(longurl);
+CREATE INDEX IF NOT EXISTS idx_url_shortcode ON "Url"(shortcode);

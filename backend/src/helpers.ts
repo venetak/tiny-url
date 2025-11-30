@@ -14,14 +14,14 @@ function generateShortCode(longUrl: string): string {
 const errorsMap: { [key: string]: string } = {
   "getAllUrls": "Failed to retrieve URLs from the database.",
   "getURLByLongUrl": "Failed to retrieve the URL from the database.",
-  "saveShortUrl": "Failed to save the short URL to the database."
+  "saveShortUrl": "Failed to save the short URL to the database.",
+  "URLExists": "The long URL already has an associated short URL.",
 }
 
 const successMap: { [key: string]: string } = {
   "getAllUrls": "URLs retrieved successfully.",
   "getURLByLongUrl": "URL retrieved successfully.",
   "saveShortUrl": "Short URL created successfully.",
-  "URLExists": "The long URL already has an associated short URL."
 };
 
 function errorMessageBuilder(errorKey: string, rawError: Error): string {

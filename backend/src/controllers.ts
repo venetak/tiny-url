@@ -16,14 +16,8 @@ async function shortenUrl(req: Request, res: Response) {
 	const host = hostnameFromRequest(req);
 	const response = await saveShortUrl(longUrl, host);
 
-	if (response.status === 'error') return res.json({ error: response.error, status: 'error' });
-
 	// Always return a full URL object for frontend compatibility
-	res.json({ 
-		status: response.status,
-		message: response.message,
-		data: response.data
-	});
+	res.json(response);
 }
 
 

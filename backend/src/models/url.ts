@@ -54,16 +54,9 @@ async function saveShortUrl(longUrl: string, host: string): Promise<URLAPIRespon
     if (response.status === 'error') return response;
     if (response.data) {
         // Existing URL, hydrate full object
-        const urlRecord = response.data;
         return {
-            status: response.status,
-            data: {
-                shortUrl: `${host}/${urlRecord.shortcode}`,
-                longUrl: urlRecord.longurl,
-                shortCode: urlRecord.shortcode,
-                createdAt: urlRecord.createdat || null,
-            },
-            message: successMessageBuilder("URLExists")
+            status: "error",
+            error: errorMessageBuilder("URLExists", new Error("The Url you are trying to shorten already exists.")),
         };
     }
 
@@ -79,10 +72,10 @@ async function saveShortUrl(longUrl: string, host: string): Promise<URLAPIRespon
         status: 'success',
         message: successMessageBuilder("saveShortUrl"),
         data: {
-            shortUrl: `${host}/${data.shortcode}`,
-            longUrl: data.longurl,
-            shortCode: data.shortcode,
-            createdAt: data.createdat || null,
+            shorturl: `${host}/${data.shortcode}`,
+            longurl: data.longurl,
+            shortcode: data.shortcode,
+            createdat: data.createdat || null,
         },
     };
 }
