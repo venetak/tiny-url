@@ -15,7 +15,7 @@ async function getAllUrls(host: string): Promise<URLAPIResponse<any[]> | URLAPIE
     // so you don't need to update stored URLs when deploying to a different domain or environment.
     const hydratedData = data.map((urlRecord: any) => ({
         ...urlRecord,
-        shortUrl: `${host}/${urlRecord.shortcode}`
+        shorturl: `${host}/${urlRecord.shortcode}`
     }));
     return { status: 'success', data: hydratedData, message: successMessageBuilder("getAllUrls") };
 }
