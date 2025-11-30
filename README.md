@@ -48,9 +48,9 @@ A mini web application to generate and manage short URLs.
 
 ## Example
 
-| Original URL                | Tiny URL           |
-|----------------------------|--------------------|
-| https://www.example.com    | http://localhost:3000/abc123 |
+| Original URL            | Tiny URL                     |
+| ----------------------- | ---------------------------- |
+| https://www.example.com | http://localhost:3000/abc123 |
 
 ## License
 

@@ -14,11 +14,9 @@ const app = express();
  */
 const port = 3000;
 
-
 /**
  * Main router for handling application routes
  */
-
 
 // Middleware to parse JSON requests
 app.use(express.json());
@@ -40,5 +38,5 @@ app.get(/ui\/.*/, (req, res) => {
  * Starts the Express server and listens on the specified port.
  */
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+  console.log(`Example app listening on port ${port}`);
+});
