@@ -2,8 +2,6 @@ import db from '../config/db-connection.js'
 import  { URLAPIResponse, URLAPIError } from '../types/common.js';
 import { to, generateShortCode, errorMessageBuilder, successMessageBuilder } from '../helpers.js';
 
-
-
 /**
  * Retrieves all URLs from the database.
  * @returns {Promise<URLAPIResponse<any[]> | URLAPIError>} Array of URL records or error response
@@ -63,7 +61,6 @@ async function saveShortUrl(longUrl: string, host: string): Promise<URLAPIRespon
                 shortUrl: `${host}/${urlRecord.shortcode}`,
                 longUrl: urlRecord.longurl,
                 shortCode: urlRecord.shortcode,
-                clicks: urlRecord.clicks || 0,
                 createdAt: urlRecord.createdat || null,
             },
             message: successMessageBuilder("URLExists")
@@ -71,7 +68,7 @@ async function saveShortUrl(longUrl: string, host: string): Promise<URLAPIRespon
     }
 
     const shortCode = generateShortCode(longUrl);
-    const sql = `INSERT INTO "Url" (longurl, shortcode) VALUES ($1, $2)
+    const sql = `INSERT INTO "Url" (longurl, shortcode, createdat) VALUES ($1, $2, NOW())
                 ON CONFLICT (longurl) DO NOTHING RETURNING *`;
 
     const [error, data] = await to(db.one(sql, [longUrl, shortCode]));
@@ -85,7 +82,6 @@ async function saveShortUrl(longUrl: string, host: string): Promise<URLAPIRespon
             shortUrl: `${host}/${data.shortcode}`,
             longUrl: data.longurl,
             shortCode: data.shortcode,
-            clicks: data.clicks || 0,
             createdAt: data.createdat || null,
         },
     };

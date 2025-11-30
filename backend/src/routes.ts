@@ -7,13 +7,13 @@ import { validateUrlInput } from './middlewares.js';
  * Route to shorten a URL.
  * @name POST /shorten
  */
-router.post('/shorten', validateUrlInput, shortenUrl);
+router.post('/api/shorten', validateUrlInput, shortenUrl);
 
 /**
  * Route to list all URLs.
  * @name GET /urls
  */
-router.get('/urls', listUrls);
+router.get('/api/urls', listUrls);
 
 /**
  * Route to redirect a short code to its long URL.

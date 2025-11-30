@@ -25,14 +25,14 @@ app.use(express.json());
 
 // Serve static files from frontend/build
 const frontendBuildPath = path.resolve(process.cwd(), 'frontend/build');
-app.use(express.static(frontendBuildPath));
+app.use('/ui', express.static(frontendBuildPath));
 
 import router from './routes.js';
 
 // Register main router for API
-app.use('/api', router);
+app.use('/', router);
 
-app.get(/^\/(?!api).*/, (req, res) => {
+app.get(/ui\/.*/, (req, res) => {
   res.sendFile(path.join(frontendBuildPath, 'index.html'));
 });
 
